@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أحمد القبيصي للبصريات</title>
+    <!-- خطوط جوجل: استخدام خط عصري للغة العربية والانجليزية -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --navy-blue: #1e2b4d;  /* كحلي اللوجو */
+            --cyan-blue: #3eb5c9;  /* لبني اللوجو */
+            --bg-color: #f7f9fc;   /* خلفية فاتحة عصرية */
+            --card-bg: #ffffff;
+            --text-main: #111827;
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(30, 43, 77, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* --- الحاوية الرئيسية --- */
+        .app-container {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* --- قسم الهيدر (اللوجو والنبذة) --- */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .logo-container {
+            width: 140px;
+            height: 140px;
+            background: var(--card-bg);
+            border-radius: 50%; /* تعديل الحواف لتصبح دائرية بالكامل لتناسب اللوجو */
+            padding: 5px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+            border: 2px solid var(--cyan-blue); /* لمسة جمالية تتناسق مع الألوان */
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* مهم جداً لإخفاء أي خلفية سوداء خارج الإطار الدائري */
+        }
+
+        /* لمسة جمالية (نقطة نشطة) */
+        .status-dot {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            width: 18px;
+            height: 18px;
+            background-color: #10b981; /* أخضر يدل على التواجد */
+            border: 3px solid var(--card-bg);
+            border-radius: 50%;
+            z-index: 2;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; /* ضمان قص أطراف الصورة نفسها */
+            background-color: #ffffff; /* فرض خلفية بيضاء للصورة لتجنب السواد */
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            color: var(--navy-blue);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+
+        .profile-bio {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            max-width: 90%;
+        }
+
+        /* --- نظام Bento Grid للأزرار --- */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+
+        /* البطاقة العامة */
+        .bento-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 24px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--cyan-blue);
+        }
+
+        .bento-icon {
+            font-size: 2.2rem;
+            color: var(--navy-blue);
+            transition: color 0.3s ease;
+        }
+
+        .bento-title {
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .bento-card:hover .bento-icon {
+            color: var(--cyan-blue);
+        }
+
+        /* تخصيص زر الواتساب (يأخذ العرض كاملاً) */
+        .card-whatsapp {
+            grid-column: 1 / -1; /* يمتد على العمودين */
+            background: linear-gradient(135deg, var(--navy-blue) 0%, #2a3f6d 100%);
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 30px;
+            border: none;
+        }
+
+        .card-whatsapp .bento-icon {
+            color: var(--cyan-blue);
+            font-size: 2.5rem;
+        }
+
+        .card-whatsapp .bento-title {
+            color: white;
+            font-size: 1.4rem;
+            text-align: right;
+            flex: 1;
+            margin-right: 20px;
+        }
+
+        .card-whatsapp .action-btn {
+            background: var(--cyan-blue);
+            color: var(--navy-blue);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* تخصيص بطاقة الخريطة */
+        .card-map {
+            grid-column: 1 / -1; /* يمتد على العمودين */
+            flex-direction: row;
+            justify-content: flex-start;
+            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center;
+        }
+
+        .card-map .bento-icon {
+            color: var(--cyan-blue);
+            background: var(--navy-blue);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            font-size: 1.5rem;
+        }
+
+        /* --- الفوتر (YouAses) --- */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .youases-brand {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .youases-brand span {
+            font-weight: 800;
+            color: var(--navy-blue);
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+        }
+
+        /* الانيميشن */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* التجاوب (Responsive) للموبايل */
+        @media (max-width: 600px) {
+            .bento-grid {
+                grid-template-columns: 1fr; /* عمود واحد على الموبايل */
+            }
+            .card-whatsapp {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            .card-whatsapp .bento-title {
+                text-align: center;
+                margin-right: 0;
+            }
+            .card-map {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- قسم الهوية والنبذة -->
+        <header class="profile-section">
+            <div class="logo-container">
+                <!-- تم وضع اسم الصورة التي أرسلتها هنا -->
+                <img src="n.png" alt="أحمد القبيصي للبصريات" class="logo-img">
+                <div class="status-dot" title="متاح الآن"></div>
+            </div>
+            <h1 class="profile-name">أحمد القبيصي للبصريات</h1>
+            <p class="profile-bio">
+                رؤيتك تهمنا. نقدم لك أرقى التصميمات العصرية وأحدث التقنيات الطبية في عالم النظارات، لنجمع لك بين الأناقة المطلقة والجودة التي تستحقها.
+            </p>
+        </header>
+
+        <!-- شبكة الروابط (Bento Grid) -->
+        <main class="bento-grid">
+            
+            <!-- الواتساب (البطاقة الرئيسية) -->
+            <a href="https://wa.me/201101865555" class="bento-card card-whatsapp" target="_blank">
+                <i class="fab fa-whatsapp bento-icon"></i>
+                <span class="bento-title">تواصل معنا عبر واتساب لمعرفة التفاصيل</span>
+                <div class="action-btn">
+                    تواصل الآن <i class="fas fa-arrow-left"></i>
+                </div>
+            </a>
+
+            <!-- فيسبوك -->
+            <a href="https://www.facebook.com/profile.php?id=61572271631230" class="bento-card" target="_blank">
+                <i class="fab fa-facebook-f bento-icon"></i>
+                <span class="bento-title">صفحتنا على فيسبوك</span>
+            </a>
+
+            <!-- تليجرام -->
+            <a href="https://t.me/kobesyglasses" class="bento-card" target="_blank">
+                <i class="fab fa-telegram-plane bento-icon"></i>
+                <span class="bento-title">قناتنا على تليجرام</span>
+            </a>
+
+            <!-- الخريطة (البطاقة السفلية) -->
+            <a href="https://maps.app.goo.gl/xtZ6n5H6FTEvi7By7?g_st=ac" class="bento-card card-map" target="_blank">
+                <div class="bento-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <span class="bento-title">اكتشف موقعنا الجغرافي على الخريطة</span>
+            </a>
+
+        </main>
+
+        <!-- تذييل الشركة -->
+        <footer>
+            <div class="youases-brand">
+                Designed & Developed by <span>YouAses</span>
+            </div>
+        </footer>
+
+    </div>
+
+</body>
+</html>
